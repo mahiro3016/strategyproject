@@ -1,0 +1,53 @@
+{% load static %}
+
+<div class="container marketing">
+    <div class="row">
+        
+
+        {% if user.is_authenticated %}
+        <div class="col-lg-4">
+        <img src="{% static 'assets/img/ログアウト.png' %}" class="bd-placeholder-img rounded-circle" width="140" height="140" role="img" focusable="false">
+        <h2 class="fw-normal">ログアウト</h2>
+        <p>ログアウトしてしまうのですか？</p>
+        <p><a class="btn btn-danger" href="{% url 'accounts:logout' %}">ログアウトはこちらから &raquo;</a></p>
+        </div><!-- /.col-lg-4 -->
+
+        <div class="col-lg-4">
+        <img src="{% static 'assets/img/マイページ.png' %}" class="bd-placeholder-img rounded-circle" width="140" height="140" role="img" focusable="false">
+        <h2 class="fw-normal">マイページ</h2>
+        <p>自分の投稿を確認しよう</p>
+        <p><a class="btn btn-warning" href="{% url 'strategy:mypage' %}">マイページはこちらから &raquo;</a></p>
+        </div><!-- /.col-lg-4 -->
+
+        <div class="col-lg-4">
+        <img src="{% static 'assets/img/投稿.png' %}" class="bd-placeholder-img rounded-circle" width="140" height="140" role="img" focusable="false">
+        <h2 class="fw-normal">投稿</h2>
+        <p>攻略情報を世界に共有しよう</p>
+        <p><a class="btn btn-dark" href="{% url 'strategy:post' %}">投稿ページはこちらから &raquo;</a></p>
+        </div><!-- /.col-lg-4 -->
+
+        {% else %}
+
+        <div class="col-lg-4">
+        <img src="{% static 'assets/img/サインイン.png' %}" class="bd-placeholder-img rounded-circle" width="140" height="140" role="img" focusable="false">
+        <h2 class="fw-normal">サインイン</h2>
+        <p>アカウントを登録すれば、攻略情報の閲覧や情報の投稿が出来ます。</p>
+        <p><a class="btn btn-success" href="{% url 'accounts:signup' %}">サインインはこちらから &raquo;</a></p>
+        </div><!-- /.col-lg-4 -->
+
+        <div class="col-lg-4">
+        <img src="{% static 'assets/img/ログイン.png' %}" class="bd-placeholder-img rounded-circle" width="140" height="140" role="img" focusable="false">
+        <h2 class="fw-normal">ログイン</h2>
+        <p>ログインをして、攻略情報を投稿しよう</p>
+        <p><a class="btn btn-info" href="{% url 'accounts:login' %}">ログインはこちらから &raquo;</a></p>
+        </div><!-- /.col-lg-4 -->
+
+        <div class="col-lg-4">
+        <img src="{% static 'assets/img/投稿.png' %}" class="bd-placeholder-img rounded-circle" width="140" height="140" role="img" focusable="false">
+        <h2 class="fw-normal">投稿</h2>
+        <p>投稿機能はログイン状態でないと使用できません！</p>
+        </div><!-- /.col-lg-4 -->
+        {% endif %}
+
+        
+    </div><!-- /.row -->

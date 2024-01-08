@@ -1,0 +1,29 @@
+
+  <!-- Three columns of text below the carousel -->
+
+  <!-- START THE FEATURETTES -->
+
+  {% for record in object_list %}
+  <hr class="featurette-divider">
+
+  <div class="row featurette">
+
+    
+    <div class="col-md-7 order-md-2">
+      <h2 class="featurette-heading fw-normal lh-1">{{record.title}}</h2>
+      <p class="lead">{{record.comment1|truncatechars:20}}</p>
+
+      {% if user.is_authenticated %}
+        <a class="btn btn-danger" href="{% url 'strategy:strategy_detail' record.pk %}">記事詳細へ</a>
+      {% endif %}
+    </div>
+    
+    
+    <div class="col-md-5 order-md-3">
+      <img src="{{ record.image1.url }}" class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false">
+    </div>
+  </div>
+
+  {% endfor %}
+
+  <hr class="featurette-divider">

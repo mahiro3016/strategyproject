@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+
+{% load dictionary-management %}
+
+
+
+
+{% block title %}strategy Detail{% endblock %}
+
+    {% block extrahead %}
+        <!-- Font Awesome -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+        <!-- MDB -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.1/mdb.min.css" rel="stylesheet" />
+    {% endblock %}
+
+    {% block contents %}
+    <div class="row featurette">
+        <div class="card">  
+            <div class="card-header">
+                {% if is_user_liked_for_post %}
+                <button type="button" id="ajax-like-for-post" style="border:none;background:none">
+                    <!-- すでにイイねしている時はfasクラス -->
+                    <i class="fas fa-heart text-danger" id="like-for-post-icon"></i>
+                </button>
+                {% else %}
+                <button type="button" id="ajax-like-for-post" style="border:none;background:none">
+                    <!-- イイねしていないときはfarクラス -->
+                    <i class="far fa-heart text-danger" id="like-for-post-icon"></i>
+                </button>
+                {% endif %}
+                <!-- イイねの数 -->
+                <span id="like-for-post-count">{{ like_for_post_count }}</span>
+                <span>件のイイね</span>
+            </div>
+            <div class="card-body mx-auto">
+                <div class="card-title">
+                    <h2>#{{ object.pk }} {{ object.title }}</h2>
+                </div>
+                <div class="card-text">
+                    <span class="fs-6">{{object.posted_at}}</span>
+                    <p class="fs-6">{{ object.user }}</p>
+                    <div class="mt-4">
+                        <p>{{object.comment1}}</p>
+                        <p><img src="{{ object.image1.url }}" width="100%" height="100%"></img></p>
+                        <hr class="featurette-divider">
+
+                        {% if object.comment2 %}
+                            <p>{{ object.comment2 }}</p>
+                        {% endif %}
+
+                        {% if object.image2 %}
+                            <p><img src="{{ object.image2.url }}" width="100%" height="100%"></img></p>
+                            <hr class="featurette-divider">
+                        {% endif %}
+
+                        {% if object.comment3 %}
+                            <p>{{ object.comment3 }}</p>
+                        {% endif %}
+
+                        {% if object.image3 %}
+                            <p><img src="{{ object.image3.url }}" width="100%" height="100%"></img></p>
+                            <hr class="featurette-divider">
+                        {% endif %}
+                        <form method="POST">
+                            {% if request.user == object.user %}
+                                <a href="{% url 'strategy:strategy_delete' object.pk %}"
+                                    class="btn btn-primary offset-2">削除する</a>
+                            {% endif %}
+                                <a href="{% url 'strategy:comment_create' object.pk %}"
+                                    class="btn btn-success offset-2">コメント</a>
+                        </form>  
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        {% for comment in comments %}
+        <div class="card mt-4">
+            <div class="card-body">
+                <div class="card-title">
+                    <span class="fs-6">{{ comment.created_at }}</span>
+                    <p class="fs-6">{{ comment.name }}</p>
+                </div>
+                <div class="card-text">
+                    <div class="mt-4 mb-4">
+                    {{ comment.text }}
+                    </div>
+                    <div class="card-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endblock %}
+
+    {% block extrajs %}
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.0.0/mdb.min.js"></script>
+        <script type="text/javascript">
+            /* ポストに対するイイね */
+            document.getElementById('ajax-like-for-post').addEventListener('click', e => {
+              e.preventDefault();
+              const url = '{% url "strategy:like_for_post" %}';
+              fetch(url, {
+                method: 'POST',
+                body: `post_pk={{object.pk}}`,
+                headers: {
+                  'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+                  'X-CSRFToken': '{{ csrf_token }}',
+                },
+              }).then(response => {
+                return response.json();
+              }).then(response => {
+                const counter = document.getElementById('like-for-post-count')
+                counter.textContent = response.like_for_post_count
+                const icon = document.getElementById('like-for-post-icon')
+                // 作成した場合はハートを塗る
+                if (response.method == 'create') {
+                    icon.classList.remove('far')
+                    icon.classList.add('fas')
+                    icon.id = 'like-for-post-icon'
+                } else {
+                    icon.classList.remove('fas')
+                    icon.classList.add('far')
+                    icon.id = 'like-for-post-icon'
+                }
+              }).catch(error => {
+                console.log(error);
+              });
+            });
+        </script>
+    {% endblock %}

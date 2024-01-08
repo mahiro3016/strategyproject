@@ -1,0 +1,68 @@
+{% load static %}
+
+<!-- カルーセルは回転的なやつ。トップページの回転する奴用のやつ。 -->
+
+
+<div id="myCarousel" class="carousel slide mb-6" data-bs-ride="carousel" data-bs-theme="dark">
+  <div class="carousel-indicators">
+
+    <!-- カルーセルの画面移動用のやつ -->
+    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="4" aria-label="Slide 5"></button>
+  </div>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+
+      <!-- カルーセルの画像の設定はここ -->
+
+      <img src="{% static 'assets/img/STRATEGY.png' %}" width="100%" height="100%" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false" rect width="100%" height="100%" fill="var(--bs-secondary-color)"/>
+
+      <div class="container">
+        <div class="carousel-caption text-start">
+          <h1 class="text-success">攻略情報投稿サイト.</h1>
+          <p class="opacity-75 text-success">アカウントを登録して、攻略情報を共有しよう</p>
+          <p><a class="btn btn-lg btn-success" href="{% url 'accounts:signup' %}">Sign up today</a></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="carousel-item">
+      <img src="{% static 'assets/img/ホームログイン.png' %}" width="100%" height="100%" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false" rect width="100%" height="100%" fill="var(--bs-secondary-color)"/>
+      <div class="container">
+        <div class="carousel-caption">
+          <h1>ログインページへ.</h1>
+          <p>ログインを行って攻略情報を投稿しよう.</p>
+          <p><a class="btn btn-lg btn-info" href="{% url 'accounts:login' %}">ログイン</a></p>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="carousel-item">
+      <img src="{% static 'assets/img/ホーム投稿.png' %}" width="100%" height="100%" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false" rect width="100%" height="100%" fill="var(--bs-secondary-color)"/>
+    </div>
+  
+    <div class="carousel-item">
+      <img src="{% static 'assets/img/注意.png' %}" width="100%" height="100%" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false" rect width="100%" height="100%" fill="var(--bs-secondary-color)"/>
+    </div>
+
+    <div class="carousel-item">
+      <img src="{% static 'assets/img/機能.png' %}" width="100%" height="100%" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false" rect width="100%" height="100%" fill="var(--bs-secondary-color)"/>
+    </div>
+    
+    
+
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
